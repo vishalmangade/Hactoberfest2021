@@ -1,0 +1,96 @@
+class Darray
+{
+private:
+    int *data;
+    int size;
+    int next;
+
+public:
+    Darray()
+    {
+        data = new int[5];
+        next = 0;
+        size = 5;
+    }
+
+    void add(int element)
+    {
+        if (next == size)
+        {
+            int *newdata = new int[size * 2];
+
+            for (int i = 0; i < size; i++)
+            {
+                newdata[i] = data[i];
+            }
+
+            delete[] data;
+            data = newdata;
+            size *= 2;
+        }
+
+        data[next] = element;
+        next++;
+    }
+
+    void add(int i, int element)
+    {
+        if (i < next)
+        {
+            data[i] = element;
+        }
+
+        else if (i == next)
+        {
+            add(element);
+        }
+        else
+        {
+            cout << "please enter value within array" << endl;
+        }
+    }
+
+    void const print()
+    {
+
+        for (int i = 0; i < next; i++)
+        {
+            cout << data[i] << " ";
+        }
+        cout << endl;
+    }
+
+    void const get(int i)
+    {
+        if (i < next)
+        {
+            cout << data[i] << endl;
+        }
+        else
+        {
+            cout << "You entered value greaterthan arraysize" << endl;
+        }
+    }
+
+    Darray(Darray const &k)
+    {
+        this->data = new int[k.size];
+        for (int i = 0; i < k.next; i++)
+        {
+            data[i] = k.data[i];
+        }
+        this->size = k.size;
+        this->next = k.next;
+    }
+
+    void operator=(Darray &k)
+    {
+        this->data = new int[k.size];
+        for (int i = 0; i < k.next; i++)
+        {
+            data[i] = k.data[i];
+        }
+        this->size = k.size;
+        this->next = k.next;
+    }
+};
